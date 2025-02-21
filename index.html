@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebAR 3D Farm Scene</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs renderer="antialias: true;">
+        
+        <!-- Lighting for Better Visibility -->
+        <a-light type="directional" intensity="1.5" position="2 4 3"></a-light>
+        <a-light type="ambient" intensity="0.5"></a-light>
+        
+        <!-- Ground Plane for Animals to Walk On -->
+        <a-plane position="0 0 0" rotation="-90 0 0" width="10" height="10" color="#7CFC00"></a-plane>
+        
+        <!-- 3D Farm Animals with Corrected Hosted URLs for GLB Files -->
+        <a-entity position="0 0 -3">
+            <a-gltf-model src="https://models.readyplayer.me/cow.glb" position="-1 0 0" scale="0.5 0.5 0.5" animation-mixer></a-gltf-model>
+            <a-gltf-model src="https://models.readyplayer.me/sheep.glb" position="0 0 0" scale="0.5 0.5 0.5" animation-mixer></a-gltf-model>
+            <a-gltf-model src="https://models.readyplayer.me/chicken.glb" position="1 0 0" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model>
+        </a-entity>
+        
+        <!-- Camera & AR Controls -->
+        <a-entity camera look-controls>
+            <a-entity cursor="fuse: false; rayOrigin: mouse" raycaster="objects: .clickable"></a-entity>
+        </a-entity>
+    </a-scene>
+</body>
+</html>
