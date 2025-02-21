@@ -3,31 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebAR 3D Farm Scene</title>
+    <title>WebAR Moving Sheep</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ar.js@latest/aframe/build/aframe-ar.min.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs renderer="antialias: true;">
-        
-        <!-- Lighting for Better Visibility -->
-        <a-light type="directional" intensity="1.5" position="2 4 3"></a-light>
-        <a-light type="ambient" intensity="0.5"></a-light>
-        
-        <!-- Ground Plane for Animals to Walk On -->
+    <a-scene embedded arjs>
+        <!-- Ground -->
         <a-plane position="0 0 0" rotation="-90 0 0" width="10" height="10" color="#7CFC00"></a-plane>
-        
-        <!-- 3D Farm Animals with Corrected Hosted URLs for GLB Files -->
-        <a-entity position="0 0 -3">
-            <a-gltf-model src="https://github.com/alizafar20000/webarmodels/blob/994806bace500605737a559fa5847356072965ed/sheep_animation_lowpoly.glb" position="-1 0 0" scale="0.5 0.5 0.5" animation-mixer></a-gltf-model>
-            <a-gltf-model src="https://github.com/alizafar20000/webarmodels/blob/994806bace500605737a559fa5847356072965ed/sheep_animation_lowpoly.glb" position="0 0 0" scale="0.5 0.5 0.5" animation-mixer></a-gltf-model>
-            <a-gltf-model src="https://models.readyplayer.me/chicken.glb" position="1 0 0" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model>
+
+        <!-- Moving Sheep -->
+        <a-entity id="sheep" position="0 0 -3" scale="0.5 0.5 0.5">
+            <a-gltf-model src="YOUR_HOSTED_SHEEP_MODEL_URL.glb"></a-gltf-model>
+            <a-animation attribute="position" 
+                from="-1 0 -3" to="1 0 -3" 
+                dur="4000" direction="alternate" repeat="indefinite">
+            </a-animation>
         </a-entity>
-        
-        <!-- Camera & AR Controls -->
-        <a-entity camera look-controls>
-            <a-entity cursor="fuse: false; rayOrigin: mouse" raycaster="objects: .clickable"></a-entity>
-        </a-entity>
+
+        <!-- Audio for Tap Sound -->
+        <a-sound id="sheepSound" src="YOUR_HOSTED_SOUND_FILE.mp3" autoplay="false"></a-sound>
+
+        <!-- Camera -->
+        <a-entity camera></a-entity>
     </a-scene>
+
+    <script>
+        document.getElementById("sheep").addEventListener("click", function () {
+            document.getElementById("sheepSound").components.sound.playSound();
+        });
+    </script>
 </body>
 </html>
